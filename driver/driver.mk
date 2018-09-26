@@ -72,3 +72,34 @@ COBJS-$(CONFIG_SECURE)		+= $(DRIVERS_SRC)/secure.o
 COBJS-$(CONFIG_BACKUP_MODE)	+= $(DRIVERS_SRC)/backup.o
 
 COBJS-$(CONFIG_REDIRECT_ALL_INTS_AIC)	+= $(DRIVERS_SRC)/at91_aicredir.o
+
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubiflash.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/attach.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/build.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/crc32.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/debug.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/eba.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/fastmap.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/io.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/kapi.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/misc.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/upd.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/vmt.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/vtbl.o
+#COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/wl.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/rbtree.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/strto.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/ctype.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/div64.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/linux_compat.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/malloc_simple.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/lib1funcs.o
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/string.o
+
+COBJS-$(CONFIG_UBI) += $(DRIVERS_SRC)/ubi/ubi-glue.o
+
+$(patsubst %.c,%.o,$(wildcard $(DRIVERS_SRC)/ubi/*.c)): CPPFLAGS += -include config.h -D__AT91BOOTSTRAP__ -D__UBOOT__ -D__KERNEL__ -iquote $(DRIVERS_SRC)/ubi/include -isystem $(DRIVERS_SRC)/ubi/include
+
+$(patsubst %.S,%.o,$(wildcard $(DRIVERS_SRC)/ubi/*.S)):  ASFLAGS += -include config.h -D__AT91BOOTSTRAP__ -D__UBOOT__ -D__KERNEL__ -iquote $(DRIVERS_SRC)/ubi/include -isystem $(DRIVERS_SRC)/ubi/include -D__ASSEMBLY__
+
+$(DRIVERS_SRC)/ubiflash.o: CPPFLAGS += -include config.h -D__AT91BOOTSTRAP__ -D__UBOOT__ -D__KERNEL__ -iquote $(DRIVERS_SRC)/ubi/include -isystem $(DRIVERS_SRC)/ubi/include

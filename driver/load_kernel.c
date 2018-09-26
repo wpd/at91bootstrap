@@ -33,6 +33,7 @@
 #include "slowclk.h"
 #include "dataflash.h"
 #include "nandflash.h"
+#include "ubiflash.h"
 #include "flash.h"
 #include "sdcard.h"
 #include "fdt.h"
@@ -321,6 +322,7 @@ static int boot_image_setup(unsigned char *addr, unsigned int *entry)
 #endif /* !CONFIG_QSPI_XIP */
 #endif /* CONFIG_LINUX_IMAGE */
 
+#define CONFIG_UBIFLASH
 static int load_kernel_image(struct image_info *image)
 {
 	int ret;
@@ -329,6 +331,8 @@ static int load_kernel_image(struct image_info *image)
 	ret = load_dataflash(image);
 #elif defined(CONFIG_FLASH)
 	ret = load_norflash(image);
+#elif defined(CONFIG_UBIFLASH)
+	ret = load_ubiflash(image);
 #elif defined(CONFIG_NANDFLASH)
 	ret = load_nandflash(image);
 #elif defined(CONFIG_SDCARD)

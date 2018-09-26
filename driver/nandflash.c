@@ -590,7 +590,7 @@ static void nandflash_reset(void)
 	nand_cs_disable();
 }
 
-static int nandflash_get_type(struct nand_info *nand)
+int nandflash_get_type(struct nand_info *nand)
 {
 	struct nand_chip *chip = &nand_chip_default;
 
@@ -823,9 +823,9 @@ static int nand_read_sector(struct nand_info *nand,
 }
 #endif /* #ifdef CONFIG_NANDFLASH_SMALL_BLOCKS */
 
-static int nand_check_badblock(struct nand_info *nand,
-				unsigned int block,
-				unsigned char *buffer)
+int nand_check_badblock(struct nand_info *nand,
+			unsigned int block,
+			unsigned char *buffer)
 {
 	unsigned int page;
 	unsigned int row_address = block * nand->pages_block;
@@ -856,11 +856,11 @@ static void nand_read_ecc(struct nand_ooblayout *ooblayout,
 }
 #endif
 
-static int nand_read_page(struct nand_info *nand,
-				unsigned int block,
-				unsigned int page,
-				unsigned int zone_flag,
-				unsigned char *buffer)
+int nand_read_page(struct nand_info *nand,
+		   unsigned int block,
+		   unsigned int page,
+		   unsigned int zone_flag,
+		   unsigned char *buffer)
 {
 	unsigned int row_address = block * nand->pages_block + page;
 

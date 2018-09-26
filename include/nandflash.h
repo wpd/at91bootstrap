@@ -28,6 +28,10 @@
 #ifndef __NANDFLASH_H__
 #define __NANDFLASH_H__
 
+struct nand_info;
+extern int nandflash_get_type(struct nand_info *nand);
+extern int nand_check_badblock(struct nand_info *nand, unsigned int block, unsigned char *buffer);
+extern int nand_read_page(struct nand_info *nand, unsigned int block, unsigned int page, unsigned int zone_flag, unsigned char *buffer);
 extern int load_nandflash(struct image_info *image);
 
 #endif /* #ifndef __NANDFLASH_H__ */

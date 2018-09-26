@@ -1,0 +1,59 @@
+config CONFIG_UBI
+	bool "UBI support"
+	default n
+	depends on CONFIG_NANDFLASH	# Not really, but for now, it does
+	help
+	  Boot images from a UBI volume in NAND flash
+
+menu "UBI Options"
+	depends on CONFIG_UBI
+
+config CONFIG_UBI_FLASH_SIZE
+	hex "Size of flash in bytes"
+	default "0x08000000"
+	help
+	  Specifies the size of the flash.  Would be used to determine the number of blocks
+	  to reserve for wear leveling, if we implemented writing to UBI.  But we don't.  So it's
+	  probably useless, but probably should reflect the size of the flash nonetheless.
+
+config CONFIG_UBI_PARTITION_START
+	hex "Start address of UBI partition"
+	default "0x20000"
+	help
+	  Specifies the start address in flash of the UBI partition that bootstrap should
+	  scan for volumes containing code to be booted.
+
+config CONFIG_UBI_PARTITION_END
+	hex "End of MTD partition"
+	default CONFIG_UBI_FLASH_SIZE
+	help
+	  Specifies the end address in flash of the UBI partition that bootstrap should
+	  scan for volumes containing code to be booted.
+	  
+config CONFIG_UBI_KERNEL_VOLUME
+	string "Name of UBI volume from which to load the kernel"
+	depends on CONFIG_LOAD_LINUX
+	default "kernel"
+	help
+	  Specifies the name of the volume volume from which the kernel will be loaded.
+	  The kernel image should be written to this volume directly, starting at
+	  offset 0 in the volume.
+
+config CONFIG_UBI_DTB_VOLUME
+	string "Name of UBI volume from which to load the device tree"
+	depends on CONFIG_LOAD_LINUX && CONFIG_OF_LIBFDT
+	default "dtb"
+	help
+	  Specifies the name of the UBI volume from which the flattened device
+	  tree binary blob will be loaded.  The device tree blob should be written to this
+	  volume directly, starting at offset 0 in in the volume.
+
+config CONFIG_UBI_MTD_PARAM_PARSE_STRING
+	string "Additional parameters to append to ubi_mtd_param_parse() call"
+	default ""
+	help
+	  Specifies additional parameters to append to the call to ubi_mtd_param_parse().
+	  Must be of the form [,<vid_hdr_offs>[,max_beb_per1024[,ubi_num]]].
+	  Note the leading comma!
+endmenu
+
