@@ -255,7 +255,7 @@ config CONFIG_TOP_OF_MEMORY
 	default "0x308000"	if AT91SAM9N12
 	default "0x310000"	if SAMA5D3X
 	default "0x210000"	if SAMA5D4
-	default "0x210000"	if SAMA5D2
+	default "0x220000"	if SAMA5D2
 	help
 	    The top address of internal SRAM
 
