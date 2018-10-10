@@ -126,6 +126,7 @@ _relocate_to_sram:
 	msr	cpsr_x, r0
 #endif
 
+#ifdef THIS_IS_BROKEN
 /* Copy the data section in RAM at .data link address */
 _init_data:
         ldr      r2, =_lp_data
@@ -135,7 +136,7 @@ _init_data:
         ldrcc    r2, [r1], #4
         strcc    r2, [r3], #4
         bcc      1b
-
+#endif
 /* Initialize the bss segment */
 _init_bss:
 	adr    r2, _lp_bss
@@ -234,10 +235,12 @@ flush_idcache:
 /*#endif*/
 
 	.align
+#ifdef THIS_IS_BROKEN
 _lp_data:
         .word _edummy
         .word _sdata
         .word _edata
+#endif
 
 _lp_bss:
 	.word _sbss

@@ -25,7 +25,7 @@ SECTIONS
 		_edummy = .;
 	}
 
-	.data : AT (LOADADDR(.dummy)) {
+	.data : /* AT (LOADADDR(.dummy)) */ {
 		_sdata = .;
 		*(.vectors)
 		*(.data)
