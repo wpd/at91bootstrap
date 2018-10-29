@@ -317,11 +317,11 @@ $(AT91BOOTSTRAP): $(OBJS)
 
 %.o : %.c .config
 	@echo "  CC        "$<
-	@$(CC) $(CPPFLAGS) -c -o $@ $<
+	$(Q)$(CC) $(CPPFLAGS) -c -o $@ $<
 
 %.o : %.S .config
 	@echo "  AS        "$<
-	@$(AS) $(ASFLAGS)  -c -o $@  $<
+	$(Q)$(AS) $(ASFLAGS)  -c -o $@  $<
 
 $(AT91BOOTSTRAP).pmecc: $(AT91BOOTSTRAP)
 ifeq ($(CONFIG_NANDFLASH), y)
